@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderingService.Api", "OrderingService\OrderingService.Api.csproj", "{C9AD8049-D49A-440A-90BA-7B44FB678007}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderingService.Dal", "OrderingService.Dal\OrderingService.Dal.csproj", "{D9789B1A-60D7-4A11-97E0-43BF4D897ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderingService.Dal", "OrderingService.Dal\OrderingService.Dal.csproj", "{D9789B1A-60D7-4A11-97E0-43BF4D897ED9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderingService.Domain", "OrderingService.Domain\OrderingService.Domain.csproj", "{B95C7D85-A22A-4236-8F44-82DF7AF17A50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderingService.Domain", "OrderingService.Domain\OrderingService.Domain.csproj", "{B95C7D85-A22A-4236-8F44-82DF7AF17A50}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{901AF755-3BD2-4A95-9B38-E848D4597E4E}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderingService.Api", "OrderingService.Api\OrderingService.Api.csproj", "{E405DBB9-2812-4E7A-82AC-C739A53E392E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C9AD8049-D49A-440A-90BA-7B44FB678007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9AD8049-D49A-440A-90BA-7B44FB678007}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9AD8049-D49A-440A-90BA-7B44FB678007}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9AD8049-D49A-440A-90BA-7B44FB678007}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D9789B1A-60D7-4A11-97E0-43BF4D897ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D9789B1A-60D7-4A11-97E0-43BF4D897ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9789B1A-60D7-4A11-97E0-43BF4D897ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,6 +28,10 @@ Global
 		{B95C7D85-A22A-4236-8F44-82DF7AF17A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B95C7D85-A22A-4236-8F44-82DF7AF17A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B95C7D85-A22A-4236-8F44-82DF7AF17A50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E405DBB9-2812-4E7A-82AC-C739A53E392E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E405DBB9-2812-4E7A-82AC-C739A53E392E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E405DBB9-2812-4E7A-82AC-C739A53E392E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E405DBB9-2812-4E7A-82AC-C739A53E392E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

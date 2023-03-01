@@ -1,9 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using OrderingService.Dal;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<OrderingContext>(options => options.UseSqlServer(builder.Configuration["localdb"]));
 
 var app = builder.Build();
 
