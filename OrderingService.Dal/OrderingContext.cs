@@ -10,6 +10,7 @@ namespace OrderingService.Dal
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> ProductsInOrder { get; set; }
+        public DbSet<ProductTypeRef> ProductTypes { get; set; }
 
         public OrderingContext(DbContextOptions<OrderingContext> options)
             : base(options)
@@ -23,6 +24,7 @@ namespace OrderingService.Dal
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new OrderProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeRefConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

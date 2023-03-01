@@ -16,6 +16,7 @@ namespace OrderingService.Dal.Models.Configurations
                 .IsRequired();
 
             builder.Property(o => o.CreatedAt)
+                .HasDefaultValue(DateTime.UtcNow)
                 .IsRequired();
         }
     }

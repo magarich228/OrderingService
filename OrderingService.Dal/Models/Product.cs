@@ -5,7 +5,9 @@
 
         public Guid Id { get; set; }
 
-        public ProductType Type { get; set; }
+        public ProductType ProductTypeRefId { get; set; }
+
+        public ProductTypeRef? ProductTypeRef { get; set; }
 
         public string Name { get; set; } = null!;
 

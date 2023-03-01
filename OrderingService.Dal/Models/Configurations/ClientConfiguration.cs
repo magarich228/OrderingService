@@ -16,6 +16,7 @@ namespace OrderingService.Dal.Models.Configurations
                 .IsRequired()
                 .HasMaxLength(200);
 
+            builder.HasAlternateKey(c => c.Phone);
             builder.Property(c => c.Phone)
                 .IsRequired();
         }

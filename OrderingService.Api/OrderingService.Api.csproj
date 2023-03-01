@@ -20,4 +20,8 @@
     <ProjectReference Include="..\OrderingService.Dal\OrderingService.Dal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
