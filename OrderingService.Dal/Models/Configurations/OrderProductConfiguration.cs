@@ -5,6 +5,13 @@ namespace OrderingService.Dal.Models.Configurations
 {
     public class OrderProductConfiguration : IEntityTypeConfiguration<OrderProduct>
     {
+        private readonly IEnumerable<OrderProduct> _productsInOrders;
+
+        public OrderProductConfiguration(IEnumerable<OrderProduct> productsInOrders)
+        {
+            _productsInOrders = productsInOrders;
+        }
+
         public void Configure(EntityTypeBuilder<OrderProduct> builder)
         {
             builder.HasKey(op => op.Id);
@@ -25,6 +32,8 @@ namespace OrderingService.Dal.Models.Configurations
             builder.ToTable(o => o.HasCheckConstraint("Quantity", "Quantity >= 0"));
             builder.Property(o => o.Quantity)
                 .IsRequired();
+
+            builder.HasData(_productsInOrders);
         }
     }
 }

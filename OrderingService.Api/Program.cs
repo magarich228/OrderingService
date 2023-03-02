@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<SeedData>();
 builder.Services.AddDbContext<OrderingContext>(options => options.UseSqlServer(builder.Configuration["localdb"]));
 
 var app = builder.Build();

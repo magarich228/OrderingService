@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{901AF755-3BD2-4A95-9B38-E848D4597E4E}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderingService.Api", "OrderingService.Api\OrderingService.Api.csproj", "{E405DBB9-2812-4E7A-82AC-C739A53E392E}"

@@ -5,6 +5,13 @@ namespace OrderingService.Dal.Models.Configurations
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
+        private readonly IEnumerable<Product> _products;
+
+        public ProductConfiguration(IEnumerable<Product> products)
+        {
+            _products = products;
+        }
+
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasKey(p => p.Id);
@@ -30,6 +37,8 @@ namespace OrderingService.Dal.Models.Configurations
                 .HasForeignKey(p => p.ProductTypeRefId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired();
+
+            builder.HasData(_products);
         }
     }
 }

@@ -5,6 +5,13 @@ namespace OrderingService.Dal.Models.Configurations
 {
     public class ClientConfiguration : IEntityTypeConfiguration<Client>
     {
+        private readonly IEnumerable<Client> _clients;
+
+        public ClientConfiguration(IEnumerable<Client> clients)
+        {
+            _clients = clients;
+        }
+
         public void Configure(EntityTypeBuilder<Client> builder)
         {
             builder.HasKey(c => c.Id);
@@ -19,6 +26,8 @@ namespace OrderingService.Dal.Models.Configurations
             builder.HasAlternateKey(c => c.Phone);
             builder.Property(c => c.Phone)
                 .IsRequired();
+
+            builder.HasData(_clients);
         }
     }
 }
