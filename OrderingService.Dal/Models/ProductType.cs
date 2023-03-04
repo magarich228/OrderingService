@@ -10,8 +10,8 @@ namespace OrderingService.Dal.Models
         [Description("Автомобильные товары")]
         Cars = 1,
 
-        [Description("Стройматериалы")]
-        BuildingMaterials = 2,
+        [Description("Стройматериалы и инструменты")]
+        BuildingMaterialsInstruments = 2,
 
         [Description("Всё для дома")]
         HouseHoldGoods = 3
