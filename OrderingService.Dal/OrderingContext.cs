@@ -7,11 +7,11 @@ namespace OrderingService.Dal
 {
     public class OrderingContext : DbContext
     {
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderProduct> ProductsInOrders { get; set; }
-        public DbSet<ProductTypeRef> ProductTypes { get; set; }
+        public DbSet<Client> Clients { get; set; } = null!;
+        public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<OrderProduct> ProductsInOrders { get; set; } = null!;
+        public DbSet<ProductTypeRef> ProductTypes { get; set; } = null!;
 
         private readonly ILogger<OrderingContext> _logger;
         private readonly SeedData _data;
