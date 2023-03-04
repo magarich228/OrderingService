@@ -13,6 +13,10 @@ namespace OrderingService.Api.Controllers
     {
         private readonly IQueryBus _queryBus;
 
+        /// <summary>
+        /// Конструктор с DI.
+        /// </summary>
+        /// <param name="queryBus">Отправка запросов.</param>
         public ClientsController(IQueryBus queryBus)
         {
             _queryBus = queryBus;

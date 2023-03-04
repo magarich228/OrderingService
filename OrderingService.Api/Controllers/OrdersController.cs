@@ -21,6 +21,13 @@ namespace OrderingService.Api.Controllers
         private readonly IValidator<GetOrdersByClientQuery.Query> _validator;
         private readonly IMemoryCache _memoryCache;
 
+        /// <summary>
+        /// Конструктор с DI.
+        /// </summary>
+        /// <param name="queryBus">Отправка запросов.</param>
+        /// <param name="commandBus">Отправка команд.</param>
+        /// <param name="validator">Валидатор.</param>
+        /// <param name="memoryCache">Реализация кэширования.</param>
         public OrdersController(
             IQueryBus queryBus, 
             ICommandBus commandBus,

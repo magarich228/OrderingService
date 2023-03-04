@@ -16,6 +16,11 @@ namespace OrderingService.Api.Controllers
         private readonly IQueryBus _queryBus;
         private readonly IMemoryCache _memoryCache;
 
+        /// <summary>
+        /// Конструктор с DI.
+        /// </summary>
+        /// <param name="queryBus">Отправка запросов.</param>
+        /// <param name="memoryCache">Реализация кэширования.</param>
         public ProductsController(
             IQueryBus queryBus,
             IMemoryCache memoryCache)
