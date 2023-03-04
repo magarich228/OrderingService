@@ -1,15 +1,39 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Infrastructure.Commands;
+using Infrastructure.Queries;
 using Microsoft.EntityFrameworkCore;
 using OrderingService.Dal;
+using OrderingService.Domain.Clients;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    //Решения конфликта имен схем данных
+    c.CustomSchemaIds(type => $"{type.DeclaringType}{type.Name}");
+});
 
 builder.Services.AddTransient<SeedData>();
 builder.Services.AddDbContext<OrderingContext>(options => options.UseSqlServer(builder.Configuration["localdb"]));
+
+builder.Services.AddScoped<ICommandBus, CommandBus>();
+builder.Services.AddScoped<IQueryBus, QueryBus>();
+
+builder.Services.AddMediatR(configure =>
+{
+    configure.RegisterServicesFromAssemblies(
+        typeof(Program).GetTypeInfo().Assembly,
+        typeof(GetClientsQuery).GetTypeInfo().Assembly);
+});
+
+builder.Services.AddValidatorsFromAssemblyContaining<GetClientsQuery.Validator>()
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
 
 var app = builder.Build();
 
