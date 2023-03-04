@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Queries
+﻿namespace Infrastructure.Queries
 {
     public interface IQueryBus
     {

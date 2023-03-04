@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Queries;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using OrderingService.Domain.Dtos;
 using OrderingService.Domain.Products;
 
@@ -13,10 +14,14 @@ namespace OrderingService.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
+        private readonly IMemoryCache _memoryCache;
 
-        public ProductsController(IQueryBus queryBus)
+        public ProductsController(
+            IQueryBus queryBus,
+            IMemoryCache memoryCache)
         {
             _queryBus = queryBus;
+            _memoryCache = memoryCache;
         }
 
         /// <summary>
@@ -28,7 +33,7 @@ namespace OrderingService.Api.Controllers
         /// <returns>Список товаров.</returns>
         [HttpGet]
         public async Task<ActionResult<GetProductsQuery.Result>> GetProductsByFilter(
-            [FromQuery] GetProductsQuery.Query query, 
+            [FromQuery] GetProductsQuery.Query query,
             CancellationToken cancellationToken)
         {
             var result = await _queryBus.Send(query, cancellationToken);
@@ -50,7 +55,14 @@ namespace OrderingService.Api.Controllers
             [FromRoute] GetOrderProductsQuery.Query query,
             CancellationToken cancellationToken)
         {
-            var result = await _queryBus.Send(query, cancellationToken);
+            GetOrderProductsQuery.Result result;
+
+            if (!_memoryCache.TryGetValue(query.OrderId, out result!))
+            {
+                result = await _queryBus.Send(query, cancellationToken);
+
+                _memoryCache.Set(query.OrderId, result);
+            }
 
             return Ok(result);
         }

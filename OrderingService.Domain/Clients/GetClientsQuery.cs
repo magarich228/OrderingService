@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Infrastructure.Queries;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OrderingService.Dal;
 using OrderingService.Dal.Models;

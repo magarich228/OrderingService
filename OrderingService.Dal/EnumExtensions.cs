@@ -26,7 +26,7 @@ namespace OrderingService.Dal
                     return ((DescriptionAttribute)attrs[0]).Description;
                 }
             }
-            
+
             return strValue;
         }
     }

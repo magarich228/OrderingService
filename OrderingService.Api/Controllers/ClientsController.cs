@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Queries;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrderingService.Domain.Clients;
 

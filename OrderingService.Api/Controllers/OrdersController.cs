@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Infrastructure.Commands;
 using Infrastructure.Queries;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using OrderingService.Domain.Orders;
 using OrderingService.Domain.Products;
 
@@ -18,15 +19,18 @@ namespace OrderingService.Api.Controllers
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly IValidator<GetOrdersByClientQuery.Query> _validator;
+        private readonly IMemoryCache _memoryCache;
 
         public OrdersController(
-            IQueryBus queryBus, 
+            IQueryBus queryBus,
             ICommandBus commandBus,
-            IValidator<GetOrdersByClientQuery.Query> validator)
+            IValidator<GetOrdersByClientQuery.Query> validator,
+            IMemoryCache memoryCache)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
             _validator = validator;
+            _memoryCache = memoryCache;
         }
 
         /// <summary>
@@ -54,7 +58,14 @@ namespace OrderingService.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await _queryBus.Send(query, cancellationToken);
+            GetOrdersByClientQuery.Result result;
+
+            if (!_memoryCache.TryGetValue(query.ClientId, out result!))
+            {
+                result = await _queryBus.Send(query, cancellationToken);
+
+                _memoryCache.Set(query.ClientId, result, TimeSpan.FromMinutes(5));
+            }
 
             return Ok(result);
         }
@@ -70,7 +81,7 @@ namespace OrderingService.Api.Controllers
         /// <returns>Id созданного заказа.</returns>
         [HttpPost]
         public async Task<ActionResult<CreateOrderCommand.Result>> CreateOrder(
-            [FromBody] CreateOrderCommand.Command command, 
+            [FromBody] CreateOrderCommand.Command command,
             CancellationToken cancellationToken)
         {
             var quantitiesInStock = new List<int>();

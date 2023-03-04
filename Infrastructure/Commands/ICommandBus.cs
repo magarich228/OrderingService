@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Commands
+﻿namespace Infrastructure.Commands
 {
     public interface ICommandBus
     {

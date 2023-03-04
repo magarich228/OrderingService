@@ -35,6 +35,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<GetClientsQuery.Validator>(
     .AddFluentValidationAutoValidation()
     .AddFluentValidationClientsideAdapters();
 
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 

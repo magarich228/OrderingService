@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using Infrastructure.Commands;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using OrderingService.Dal;
 using OrderingService.Dal.Models;
 
