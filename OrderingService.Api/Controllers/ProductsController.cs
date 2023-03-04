@@ -33,7 +33,7 @@ namespace OrderingService.Api.Controllers
         /// <returns>Список товаров.</returns>
         [HttpGet]
         public async Task<ActionResult<GetProductsQuery.Result>> GetProductsByFilter(
-            [FromQuery] GetProductsQuery.Query query,
+            [FromQuery] GetProductsQuery.Query query, 
             CancellationToken cancellationToken)
         {
             var result = await _queryBus.Send(query, cancellationToken);

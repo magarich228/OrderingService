@@ -22,7 +22,7 @@ namespace OrderingService.Api.Controllers
         private readonly IMemoryCache _memoryCache;
 
         public OrdersController(
-            IQueryBus queryBus,
+            IQueryBus queryBus, 
             ICommandBus commandBus,
             IValidator<GetOrdersByClientQuery.Query> validator,
             IMemoryCache memoryCache)
@@ -81,7 +81,7 @@ namespace OrderingService.Api.Controllers
         /// <returns>Id созданного заказа.</returns>
         [HttpPost]
         public async Task<ActionResult<CreateOrderCommand.Result>> CreateOrder(
-            [FromBody] CreateOrderCommand.Command command,
+            [FromBody] CreateOrderCommand.Command command, 
             CancellationToken cancellationToken)
         {
             var quantitiesInStock = new List<int>();
