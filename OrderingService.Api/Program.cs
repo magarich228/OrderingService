@@ -2,22 +2,27 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Commands;
 using Infrastructure.Queries;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using OrderingService.Api;
 using OrderingService.Dal;
 using OrderingService.Domain.Clients;
 using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+var services = builder.Services;
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+services.AddControllers();
+
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen(c =>
 {
     //Решения конфликта имен схем данных
     c.CustomSchemaIds(type => $"{type.DeclaringType}{type.Name}");
 
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
         Title = "Ordering Service API",
@@ -27,26 +32,55 @@ builder.Services.AddSwaggerGen(c =>
     var basePath = AppDomain.CurrentDomain.BaseDirectory;
     var xmlPath = Path.Combine(basePath, "OrderingService.Api.xml");
     c.IncludeXmlComments(xmlPath);
+
+    c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        Description = "BasicAuthentication на основе имя клиента и его пароля.",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Scheme = "basic"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "basic"
+                }
+            },
+        new string[] {} 
+        }
+    });
 });
 
-builder.Services.AddTransient<SeedData>();
-builder.Services.AddDbContext<OrderingContext>(options => options.UseSqlServer(builder.Configuration["localdb"]));
+services.AddTransient<SeedData>();
+services.AddDbContext<OrderingContext>(options => options.UseSqlServer(builder.Configuration["localdb"]));
 
-builder.Services.AddScoped<ICommandBus, CommandBus>();
-builder.Services.AddScoped<IQueryBus, QueryBus>();
+services.AddScoped<ICommandBus, CommandBus>();
+services.AddScoped<IQueryBus, QueryBus>();
 
-builder.Services.AddMediatR(configure =>
+services.AddMediatR(configure =>
 {
     configure.RegisterServicesFromAssemblies(
         typeof(Program).GetTypeInfo().Assembly,
         typeof(GetClientsQuery).GetTypeInfo().Assembly);
 });
 
-builder.Services.AddValidatorsFromAssemblyContaining<GetClientsQuery.Validator>()
+services.AddValidatorsFromAssemblyContaining<GetClientsQuery.Validator>()
     .AddFluentValidationAutoValidation()
     .AddFluentValidationClientsideAdapters();
 
-builder.Services.AddMemoryCache();
+services.AddMemoryCache();
+
+services.AddCors();
+
+services.AddAuthentication("BasicAuthentication")
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -59,6 +93,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(c => c
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

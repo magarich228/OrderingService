@@ -12,6 +12,7 @@ namespace OrderingService.Dal
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<OrderProduct> ProductsInOrders { get; set; } = null!;
         public DbSet<ProductTypeRef> ProductTypes { get; set; } = null!;
+        public DbSet<ClientCredentials> ClientCredentials { get; set; } = null!;
 
         private readonly ILogger<OrderingContext> _logger;
         private readonly SeedData _data;
@@ -44,6 +45,9 @@ namespace OrderingService.Dal
 
             modelBuilder.ApplyConfiguration(new ProductTypeRefConfiguration());
             _logger.LogInformation($"{ProductTypes.GetType().Name} seeded.");
+
+            modelBuilder.ApplyConfiguration(new ClientCredentialsConfiguration(_data.ClientsCredentials));
+            _logger.LogInformation($"{ClientCredentials.GetType().Name} seeded.");
 
             base.OnModelCreating(modelBuilder);
         }
