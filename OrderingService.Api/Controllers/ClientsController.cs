@@ -2,6 +2,7 @@
 using Infrastructure.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using OrderingService.Domain.Clients;
 using System.Runtime.InteropServices;
 
@@ -17,18 +18,24 @@ namespace OrderingService.Api.Controllers
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
+        private readonly IMemoryCache _memoryCache;
+
+        private const string AllClientsCacheKey = "allclients";
 
         /// <summary>
         /// Конструктор с DI.
         /// </summary>
         /// <param name="queryBus">Отправка запросов.</param>
         /// <param name="commandBus">Отправка команд.</param>
+        /// <param name="memoryCache">Реализация кэширования.</param>
         public ClientsController(
             IQueryBus queryBus,
-            ICommandBus commandBus)
+            ICommandBus commandBus,
+            IMemoryCache memoryCache)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
+            _memoryCache = memoryCache;
         }
 
         /// <summary>
@@ -39,7 +46,14 @@ namespace OrderingService.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<GetClientsQuery.Result>> GetClients(CancellationToken cancellationToken)
         {
-            var result = await _queryBus.Send(new GetClientsQuery.Query(), cancellationToken);
+            GetClientsQuery.Result result;
+
+            if (!_memoryCache.TryGetValue(AllClientsCacheKey, out result!))
+            { 
+                result = await _queryBus.Send(new GetClientsQuery.Query(), cancellationToken);
+
+                _memoryCache.Set(AllClientsCacheKey, result);
+            }
 
             return Ok(result);
         }
@@ -79,6 +93,8 @@ namespace OrderingService.Api.Controllers
             CancellationToken cancellationToken)
         {
             var result = await _commandBus.Send(client, cancellationToken);
+
+            _memoryCache.Remove(AllClientsCacheKey);
 
             return Ok(result);
         }
