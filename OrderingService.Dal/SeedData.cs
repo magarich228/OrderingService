@@ -318,7 +318,7 @@ namespace OrderingService.Dal
                 credentials.Add(new Models.ClientCredentials
                 {
                     ClientId = client.Id,
-                    Username = $"user{client.Id}",
+                    Login = $"user{client.Id}",
                     Password = "qwe12345"
                 });
             }

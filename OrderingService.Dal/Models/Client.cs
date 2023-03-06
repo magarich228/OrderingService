@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OrderingService.Dal.Abstractions;
 
 namespace OrderingService.Dal.Models
 {
-    public class Client
+    public class Client : Model
     {
         public Guid Id { get; set; }
 

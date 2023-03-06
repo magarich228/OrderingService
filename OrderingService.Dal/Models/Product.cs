@@ -1,8 +1,9 @@
-﻿namespace OrderingService.Dal.Models
-{
-    public class Product
-    {
+﻿using OrderingService.Dal.Abstractions;
 
+namespace OrderingService.Dal.Models
+{
+    public class Product : Model
+    {
         public Guid Id { get; set; }
 
         public ProductType ProductTypeRefId { get; set; }

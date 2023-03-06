@@ -3,6 +3,8 @@ using Infrastructure.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using OrderingService.Dal.Models;
+using OrderingService.Domain;
 using OrderingService.Domain.Clients;
 using System.Runtime.InteropServices;
 
@@ -36,6 +38,29 @@ namespace OrderingService.Api.Controllers
             _queryBus = queryBus;
             _commandBus = commandBus;
             _memoryCache = memoryCache;
+        }
+
+        /// <summary>
+        /// Получение клиента по Id.
+        /// </summary>
+        /// <param name="query">ОБъект запроса с Id.</param>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Объект клиента.</returns>
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<GetQuery<Client>.Result>> GetClient(
+            GetQuery<Client>.Query query, 
+            CancellationToken cancellationToken)
+        {
+            GetQuery<Client>.Result result;
+
+            if (!_memoryCache.TryGetValue(query.Id, out result!))
+            {
+                result = await _queryBus.Send(query, cancellationToken);
+
+                _memoryCache.Set(query.Id, result);
+            }
+
+            return Ok(result);
         }
 
         /// <summary>

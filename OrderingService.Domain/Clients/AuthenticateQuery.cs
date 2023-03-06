@@ -56,7 +56,7 @@ namespace OrderingService.Domain.Clients
                 CancellationToken cancellationToken)
             {
                 var credentials = await _db.ClientCredentials.SingleOrDefaultAsync(credentials => 
-                    credentials.Username == username &&
+                    credentials.Login == username &&
                     credentials.Password == password);
 
                 if (credentials == null)
@@ -77,7 +77,7 @@ namespace OrderingService.Domain.Clients
                     {
                         Client = client,
                         ClientId = client.Id,
-                        Username = credentials.Username
+                        Login = credentials.Login
                     }
                 };
             }

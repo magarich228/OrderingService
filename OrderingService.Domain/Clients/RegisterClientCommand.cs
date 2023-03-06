@@ -33,7 +33,7 @@ namespace OrderingService.Domain.Clients
                 RuleFor(c => c.Username)
                     .MaximumLength(128)
                     .NotEmpty()
-                    .Must(u => !db.ClientCredentials.Any(cc => cc.Username == u))
+                    .Must(u => !db.ClientCredentials.Any(cc => cc.Login == u))
                     .WithMessage("Такое имя пользователя уже зарегестрировано");
 
                 RuleFor(c => c.Password)
@@ -83,7 +83,7 @@ namespace OrderingService.Domain.Clients
                 ClientCredentials credentials = new()
                 {
                     ClientId = client.Id,
-                    Username = command.Username,
+                    Login = command.Username,
                     Password = command.Password
                 };
 
@@ -95,7 +95,7 @@ namespace OrderingService.Domain.Clients
                 return new Result
                 {
                     Id = client.Id,
-                    Username = credentials.Username
+                    Username = credentials.Login
                 };
             }
         }

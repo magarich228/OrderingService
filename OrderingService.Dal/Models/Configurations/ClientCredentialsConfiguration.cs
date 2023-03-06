@@ -14,12 +14,12 @@ namespace OrderingService.Dal.Models.Configurations
 
         public void Configure(EntityTypeBuilder<ClientCredentials> builder)
         {
-            builder.HasKey("ClientId", "Username");
+            builder.HasKey("ClientId", "Login");
 
             builder.Property(cc => cc.ClientId)
                 .IsRequired();
 
-            builder.Property(cc => cc.Username)
+            builder.Property(cc => cc.Login)
                 .HasMaxLength(128)
                 .IsRequired();
 
