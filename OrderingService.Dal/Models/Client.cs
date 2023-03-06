@@ -8,7 +8,6 @@ namespace OrderingService.Dal.Models
 
         public string FullName { get; set; } = null!;
 
-        [Phone]
         public string Phone { get; set; } = null!;
     }
 }

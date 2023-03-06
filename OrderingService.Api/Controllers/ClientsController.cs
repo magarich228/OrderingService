@@ -1,7 +1,9 @@
-﻿using Infrastructure.Queries;
+﻿using Infrastructure.Commands;
+using Infrastructure.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrderingService.Domain.Clients;
+using System.Runtime.InteropServices;
 
 namespace OrderingService.Api.Controllers
 {
@@ -14,14 +16,19 @@ namespace OrderingService.Api.Controllers
     public class ClientsController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
+        private readonly ICommandBus _commandBus;
 
         /// <summary>
         /// Конструктор с DI.
         /// </summary>
         /// <param name="queryBus">Отправка запросов.</param>
-        public ClientsController(IQueryBus queryBus)
+        /// <param name="commandBus">Отправка команд.</param>
+        public ClientsController(
+            IQueryBus queryBus,
+            ICommandBus commandBus)
         {
             _queryBus = queryBus;
+            _commandBus = commandBus;
         }
 
         /// <summary>
@@ -49,13 +56,7 @@ namespace OrderingService.Api.Controllers
             [FromBody] AuthenticateQuery.Query credentials, 
             CancellationToken cancellationToken)
         {
-            var query = new AuthenticateQuery.Query
-            {
-                Username = credentials.Username,
-                Password = credentials.Password
-            };
-
-            var clientWithCredentials = await _queryBus.Send(query, cancellationToken);
+            var clientWithCredentials = await _queryBus.Send(credentials, cancellationToken);
 
             if (clientWithCredentials.ClientWithCredentialsWithoutPassword == null)
             {
@@ -63,6 +64,23 @@ namespace OrderingService.Api.Controllers
             }
 
             return Ok(clientWithCredentials);
+        }
+
+        /// <summary>
+        /// Регистрация нового клиента.
+        /// </summary>
+        /// <param name="client">Данные клиента.</param>
+        /// <param name="cancellationToken">Токен отмены операции.</param>
+        /// <returns>Id и имя пользователя нового клиента.</returns>
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult<RegisterClientCommand.Result>> Register(
+            [FromBody] RegisterClientCommand.Command client,
+            CancellationToken cancellationToken)
+        {
+            var result = await _commandBus.Send(client, cancellationToken);
+
+            return Ok(result);
         }
     }
 }
