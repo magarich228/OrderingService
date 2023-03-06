@@ -266,6 +266,8 @@ namespace OrderingService.Dal
 
         public IEnumerable<OrderProduct> ProductsInOrders { get; }
 
+        public IEnumerable<ClientCredentials> ClientsCredentials { get; }
+
         public SeedData()
         {
             var rnd = new Random();
@@ -308,6 +310,20 @@ namespace OrderingService.Dal
             }
 
             ProductsInOrders = productsInOrders;
+
+            var credentials = new List<ClientCredentials>();
+
+            foreach (var client in Clients)
+            {
+                credentials.Add(new Models.ClientCredentials
+                {
+                    ClientId = client.Id,
+                    Username = $"user{client.Id}",
+                    Password = "qwe12345"
+                });
+            }
+
+            ClientsCredentials = credentials;
         }
     }
 }

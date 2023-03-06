@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using OrderingService.Domain.Dtos;
@@ -55,6 +56,7 @@ namespace OrderingService.Api.Controllers
         /// Список объектов <see cref="ProductsWithQuantityInOrderDto"/>
         /// с товаром и количеством товара в заказе.
         /// </returns>
+        [Authorize]
         [HttpGet("{OrderId}")]
         public async Task<ActionResult<GetOrderProductsQuery.Result>> GetOrderProducts(
             [FromRoute] GetOrderProductsQuery.Query query,

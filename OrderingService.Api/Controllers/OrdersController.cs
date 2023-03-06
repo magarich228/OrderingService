@@ -2,6 +2,7 @@
 using FluentValidation.AspNetCore;
 using Infrastructure.Commands;
 using Infrastructure.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using OrderingService.Domain.Orders;
@@ -12,6 +13,7 @@ namespace OrderingService.Api.Controllers
     /// <summary>
     /// Работа с заказами клиентов.
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
@@ -98,7 +100,7 @@ namespace OrderingService.Api.Controllers
                 var quantitytInStock = await _queryBus.Send(new GetProductQuantityQuery.Query()
                 {
                     ProductId = command.ProductsInOrderIds[i]
-                });
+                }, cancellationToken);
 
                 if (quantitytInStock.StockQuantity == null)
                 {
