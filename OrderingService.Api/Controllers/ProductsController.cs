@@ -1,7 +1,10 @@
-﻿using Infrastructure.Queries;
+﻿using FluentValidation.AspNetCore;
+using Infrastructure.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using OrderingService.Dal.Models;
+using OrderingService.Domain;
 using OrderingService.Domain.Dtos;
 using OrderingService.Domain.Products;
 
@@ -31,7 +34,48 @@ namespace OrderingService.Api.Controllers
         }
 
         /// <summary>
-        /// Получение товаров с возможностью фильтрации по типу товара,
+        /// Получение товара по Id.
+        /// </summary>
+        /// <param name="productId">Id запрашиваемого товара.</param>
+        /// <param name="cancellationToken">Токен отмены операции.</param>
+        /// <returns>Объект результата с полученным товаром.</returns>
+        [HttpGet("{ProductId}")]
+        public async Task<ActionResult<Product>> GetProduct(
+            [FromRoute] Guid productId, 
+            CancellationToken cancellationToken)
+        {
+            var query = new GetQuery.Query
+            {
+                Id = productId,
+                ResultEntityType = typeof(Product)
+            };
+
+            var validationResult = await new GetQuery.Validator().ValidateAsync(query);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(ModelState);
+                return BadRequest(ModelState);
+            }
+
+            GetQuery.Result result;
+
+            if (!_memoryCache.TryGetValue(productId, out result!))
+            {
+                result = await _queryBus.Send(query, cancellationToken);
+
+                _memoryCache.Set(query.Id, result);
+            }
+
+            var product = result.Entity as Product;
+
+            return product != null? 
+                Ok(product) :
+                NotFound(product);
+        }
+
+        /// <summary>
+        /// Получение всех товаров с возможностью фильтрации по типу товара,
         /// минимальному количеству на складе и сортировки по цене.
         /// </summary>
         /// <param name="query">Запрос со свойствами для фильтрации, сортировки.</param>

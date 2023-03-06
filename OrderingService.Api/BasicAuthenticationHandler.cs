@@ -68,13 +68,13 @@ namespace OrderingService.Api
 
             if (client == null)
             {
-                return AuthenticateResult.Fail("Невалидный Username или Password");
+                return AuthenticateResult.Fail("Невалидный Login или Password");
             }
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, client.ClientId.ToString()),
-                new Claim(ClaimTypes.Name, client.Username)
+                new Claim(ClaimTypes.Name, client.Login)
             };
 
             var identity = new ClaimsIdentity(claims, Scheme.Name);
@@ -102,7 +102,7 @@ namespace OrderingService.Api
 
             var query = new AuthenticateQuery.Query
             {
-                Username = credentials[0],
+                Login = credentials[0],
                 Password = credentials[1],
             };
 

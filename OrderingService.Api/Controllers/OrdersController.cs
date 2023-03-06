@@ -5,6 +5,8 @@ using Infrastructure.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using OrderingService.Dal.Models;
+using OrderingService.Domain;
 using OrderingService.Domain.Orders;
 using OrderingService.Domain.Products;
 
@@ -40,6 +42,47 @@ namespace OrderingService.Api.Controllers
             _commandBus = commandBus;
             _validator = validator;
             _memoryCache = memoryCache;
+        }
+
+        /// <summary>
+        /// Получение заказа по Id.
+        /// </summary>
+        /// <param name="orderId">Id запрашиваемого заказа.</param>
+        /// <param name="cancellationToken">Токен отмены операции.</param>
+        /// <returns>Объект результата с заказом.</returns>
+        [HttpGet("{OrderId}")]
+        public async Task<ActionResult<Order>> GetOrder(
+            [FromRoute] Guid orderId,
+            CancellationToken cancellationToken)
+        {
+            var query = new GetQuery.Query
+            {
+                Id = orderId,
+                ResultEntityType = typeof(Order)
+            };
+
+            var validationResult = await new GetQuery.Validator().ValidateAsync(query);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(ModelState);
+                return BadRequest(ModelState);
+            }
+
+            GetQuery.Result result;
+
+            if (!_memoryCache.TryGetValue(query.Id, out result!))
+            {
+                result = await _queryBus.Send(query, cancellationToken);
+
+                _memoryCache.Set(query.Id, result);
+            }
+
+            var order = result.Entity as Order;
+
+            return order != null ? 
+                Ok(order) :
+                NotFound(order);
         }
 
         /// <summary>

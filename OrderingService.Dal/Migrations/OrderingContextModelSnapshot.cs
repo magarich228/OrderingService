@@ -35,8 +35,7 @@ namespace OrderingService.Dal.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -47,67 +46,67 @@ namespace OrderingService.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("39540cc0-884e-4ed3-927d-4bbd3c60bf8c"),
+                            Id = new Guid("93ae41c8-bbc4-4b66-b6c2-6cf08cedd3a1"),
                             FullName = "Меркушев Бенедикт Алексеевич",
                             Phone = "89996225028"
                         },
                         new
                         {
-                            Id = new Guid("cae2788e-e9cd-4777-beb3-f4f8305cb23b"),
+                            Id = new Guid("e4e735a0-1afd-4477-a9e3-3fb035dcfc42"),
                             FullName = "Ефимов Аким Лаврентьевич",
                             Phone = "89506225027"
                         },
                         new
                         {
-                            Id = new Guid("be64dfa7-50dc-4c15-83f1-b5136c304604"),
+                            Id = new Guid("69ec996e-b3f1-4466-912b-aa95a68678ab"),
                             FullName = "Савин Август Оскарович",
                             Phone = "89506225026"
                         },
                         new
                         {
-                            Id = new Guid("37e6a4d8-201e-4c0c-be4b-e6a9ea150661"),
+                            Id = new Guid("6fbcebb9-4289-454f-99a6-4c7d28eaa255"),
                             FullName = "Воронцов Любомир Антонович",
                             Phone = "89906225025"
                         },
                         new
                         {
-                            Id = new Guid("acfef8fa-8c16-49b5-9c28-f71cd5e08027"),
+                            Id = new Guid("34845d57-b256-42a9-bfa6-423ea09bb895"),
                             FullName = "Ларионов Аввакуум Христофорович",
                             Phone = "89506335028"
                         },
                         new
                         {
-                            Id = new Guid("a6722490-3731-4c32-994f-d9cdc6177956"),
+                            Id = new Guid("e2fd808b-c4c7-454e-8bbf-10d7ca215b7b"),
                             FullName = "Беляков Демьян Степанович",
                             Phone = "89606225028"
                         },
                         new
                         {
-                            Id = new Guid("6f1867f7-3613-4946-bd30-b391eba544e3"),
+                            Id = new Guid("24301acc-a0d7-4f83-875c-7224d7ab4afd"),
                             FullName = "Баранова Марьяна Рудольфовна",
                             Phone = "89506224428"
                         },
                         new
                         {
-                            Id = new Guid("d732f3b3-ceb9-48ac-8012-0a71d5ca1a11"),
+                            Id = new Guid("4f5e6333-d2d5-4bdc-8055-e363eea16b34"),
                             FullName = "Зайцева Римма Аристарховна",
                             Phone = "89503335028"
                         },
                         new
                         {
-                            Id = new Guid("bf12d20f-fbc2-4e79-907c-9b2b26e76627"),
+                            Id = new Guid("6cf01359-7265-43f2-8126-9d64fedb5c48"),
                             FullName = "Лазарева Лигия Пётровна",
                             Phone = "89506225268"
                         },
                         new
                         {
-                            Id = new Guid("2b44f8cf-6848-4bef-8e19-86cbf68a4b38"),
+                            Id = new Guid("7b15078f-2266-46d6-aece-e6a3aeb6f6c4"),
                             FullName = "Фёдорова Асида Федоровна",
                             Phone = "89506225278"
                         },
                         new
                         {
-                            Id = new Guid("0ff86f3c-4aa9-44fa-b4d3-b66be877a2d4"),
+                            Id = new Guid("3629c35e-c45b-4d9d-a643-e2adc228ecd0"),
                             FullName = "Дорофеева Георгина Онисимовна",
                             Phone = "89506330270"
                         });
@@ -118,84 +117,85 @@ namespace OrderingService.Dal.Migrations
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Login")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasColumnName("Login");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("ClientId", "Username");
+                    b.HasKey("ClientId", "Login");
 
                     b.ToTable("ClientCredentials");
 
                     b.HasData(
                         new
                         {
-                            ClientId = new Guid("39540cc0-884e-4ed3-927d-4bbd3c60bf8c"),
-                            Username = "user39540cc0-884e-4ed3-927d-4bbd3c60bf8c",
+                            ClientId = new Guid("93ae41c8-bbc4-4b66-b6c2-6cf08cedd3a1"),
+                            Login = "user93ae41c8-bbc4-4b66-b6c2-6cf08cedd3a1",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("cae2788e-e9cd-4777-beb3-f4f8305cb23b"),
-                            Username = "usercae2788e-e9cd-4777-beb3-f4f8305cb23b",
+                            ClientId = new Guid("e4e735a0-1afd-4477-a9e3-3fb035dcfc42"),
+                            Login = "usere4e735a0-1afd-4477-a9e3-3fb035dcfc42",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("be64dfa7-50dc-4c15-83f1-b5136c304604"),
-                            Username = "userbe64dfa7-50dc-4c15-83f1-b5136c304604",
+                            ClientId = new Guid("69ec996e-b3f1-4466-912b-aa95a68678ab"),
+                            Login = "user69ec996e-b3f1-4466-912b-aa95a68678ab",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("37e6a4d8-201e-4c0c-be4b-e6a9ea150661"),
-                            Username = "user37e6a4d8-201e-4c0c-be4b-e6a9ea150661",
+                            ClientId = new Guid("6fbcebb9-4289-454f-99a6-4c7d28eaa255"),
+                            Login = "user6fbcebb9-4289-454f-99a6-4c7d28eaa255",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("acfef8fa-8c16-49b5-9c28-f71cd5e08027"),
-                            Username = "useracfef8fa-8c16-49b5-9c28-f71cd5e08027",
+                            ClientId = new Guid("34845d57-b256-42a9-bfa6-423ea09bb895"),
+                            Login = "user34845d57-b256-42a9-bfa6-423ea09bb895",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("a6722490-3731-4c32-994f-d9cdc6177956"),
-                            Username = "usera6722490-3731-4c32-994f-d9cdc6177956",
+                            ClientId = new Guid("e2fd808b-c4c7-454e-8bbf-10d7ca215b7b"),
+                            Login = "usere2fd808b-c4c7-454e-8bbf-10d7ca215b7b",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("6f1867f7-3613-4946-bd30-b391eba544e3"),
-                            Username = "user6f1867f7-3613-4946-bd30-b391eba544e3",
+                            ClientId = new Guid("24301acc-a0d7-4f83-875c-7224d7ab4afd"),
+                            Login = "user24301acc-a0d7-4f83-875c-7224d7ab4afd",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("d732f3b3-ceb9-48ac-8012-0a71d5ca1a11"),
-                            Username = "userd732f3b3-ceb9-48ac-8012-0a71d5ca1a11",
+                            ClientId = new Guid("4f5e6333-d2d5-4bdc-8055-e363eea16b34"),
+                            Login = "user4f5e6333-d2d5-4bdc-8055-e363eea16b34",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("bf12d20f-fbc2-4e79-907c-9b2b26e76627"),
-                            Username = "userbf12d20f-fbc2-4e79-907c-9b2b26e76627",
+                            ClientId = new Guid("6cf01359-7265-43f2-8126-9d64fedb5c48"),
+                            Login = "user6cf01359-7265-43f2-8126-9d64fedb5c48",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("2b44f8cf-6848-4bef-8e19-86cbf68a4b38"),
-                            Username = "user2b44f8cf-6848-4bef-8e19-86cbf68a4b38",
+                            ClientId = new Guid("7b15078f-2266-46d6-aece-e6a3aeb6f6c4"),
+                            Login = "user7b15078f-2266-46d6-aece-e6a3aeb6f6c4",
                             Password = "qwe12345"
                         },
                         new
                         {
-                            ClientId = new Guid("0ff86f3c-4aa9-44fa-b4d3-b66be877a2d4"),
-                            Username = "user0ff86f3c-4aa9-44fa-b4d3-b66be877a2d4",
+                            ClientId = new Guid("3629c35e-c45b-4d9d-a643-e2adc228ecd0"),
+                            Login = "user3629c35e-c45b-4d9d-a643-e2adc228ecd0",
                             Password = "qwe12345"
                         });
                 });
@@ -212,7 +212,7 @@ namespace OrderingService.Dal.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 3, 6, 0, 19, 12, 643, DateTimeKind.Utc).AddTicks(8769));
+                        .HasDefaultValue(new DateTime(2023, 3, 6, 11, 52, 19, 371, DateTimeKind.Utc).AddTicks(9507));
 
                     b.HasKey("Id");
 
@@ -223,135 +223,135 @@ namespace OrderingService.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ccd8b5cb-9fca-4eff-8d88-39f7aa3459f9"),
-                            ClientId = new Guid("0ff86f3c-4aa9-44fa-b4d3-b66be877a2d4"),
-                            CreatedAt = new DateTime(2022, 6, 18, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(509)
+                            Id = new Guid("c674e4f2-c27f-494b-9ddc-802c3be293ec"),
+                            ClientId = new Guid("3629c35e-c45b-4d9d-a643-e2adc228ecd0"),
+                            CreatedAt = new DateTime(2023, 9, 2, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(2851)
                         },
                         new
                         {
-                            Id = new Guid("ab1befaf-93bd-4fe0-af35-59525ee78e29"),
-                            ClientId = new Guid("cae2788e-e9cd-4777-beb3-f4f8305cb23b"),
-                            CreatedAt = new DateTime(2022, 10, 31, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1867)
+                            Id = new Guid("8843c7e7-4606-4266-9d74-96df3a987bdc"),
+                            ClientId = new Guid("34845d57-b256-42a9-bfa6-423ea09bb895"),
+                            CreatedAt = new DateTime(2022, 10, 12, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4213)
                         },
                         new
                         {
-                            Id = new Guid("50a10916-8493-4cd1-b7f0-3c233cb6d1ef"),
-                            ClientId = new Guid("2b44f8cf-6848-4bef-8e19-86cbf68a4b38"),
-                            CreatedAt = new DateTime(2023, 11, 12, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1876)
+                            Id = new Guid("2e118b3f-d274-4b82-87c0-7b0363527d7e"),
+                            ClientId = new Guid("34845d57-b256-42a9-bfa6-423ea09bb895"),
+                            CreatedAt = new DateTime(2023, 8, 30, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4227)
                         },
                         new
                         {
-                            Id = new Guid("32a55c00-475e-418a-89e3-6a396fe6e9fb"),
-                            ClientId = new Guid("39540cc0-884e-4ed3-927d-4bbd3c60bf8c"),
-                            CreatedAt = new DateTime(2022, 10, 8, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1878)
+                            Id = new Guid("2f94af7c-e348-4b97-985f-27b0e6e2e3c9"),
+                            ClientId = new Guid("24301acc-a0d7-4f83-875c-7224d7ab4afd"),
+                            CreatedAt = new DateTime(2022, 4, 1, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4230)
                         },
                         new
                         {
-                            Id = new Guid("3609fba9-c39b-4ba2-b551-d9dbe84be705"),
-                            ClientId = new Guid("acfef8fa-8c16-49b5-9c28-f71cd5e08027"),
-                            CreatedAt = new DateTime(2024, 3, 6, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1885)
+                            Id = new Guid("d11bd9ed-3f1c-4908-8643-51c3fdb17c20"),
+                            ClientId = new Guid("3629c35e-c45b-4d9d-a643-e2adc228ecd0"),
+                            CreatedAt = new DateTime(2023, 10, 25, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4231)
                         },
                         new
                         {
-                            Id = new Guid("7ece1041-5bff-4bbd-ab90-e617bf5ab90e"),
-                            ClientId = new Guid("2b44f8cf-6848-4bef-8e19-86cbf68a4b38"),
-                            CreatedAt = new DateTime(2024, 2, 9, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1889)
+                            Id = new Guid("c8042be5-25fc-4646-a341-e393b3701843"),
+                            ClientId = new Guid("6cf01359-7265-43f2-8126-9d64fedb5c48"),
+                            CreatedAt = new DateTime(2022, 2, 11, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4237)
                         },
                         new
                         {
-                            Id = new Guid("e7c0aaa8-c127-4e35-a5a7-0bf993c908d6"),
-                            ClientId = new Guid("bf12d20f-fbc2-4e79-907c-9b2b26e76627"),
-                            CreatedAt = new DateTime(2024, 3, 23, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1891)
+                            Id = new Guid("9d21f72d-b841-4a3d-8c34-c546aef9fba4"),
+                            ClientId = new Guid("6fbcebb9-4289-454f-99a6-4c7d28eaa255"),
+                            CreatedAt = new DateTime(2022, 7, 16, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4239)
                         },
                         new
                         {
-                            Id = new Guid("00cf9b92-6512-4ace-8346-4177972473c3"),
-                            ClientId = new Guid("6f1867f7-3613-4946-bd30-b391eba544e3"),
-                            CreatedAt = new DateTime(2022, 10, 24, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1892)
+                            Id = new Guid("b6d6d453-a060-4bdd-81bf-c62f431d7716"),
+                            ClientId = new Guid("7b15078f-2266-46d6-aece-e6a3aeb6f6c4"),
+                            CreatedAt = new DateTime(2024, 2, 14, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4240)
                         },
                         new
                         {
-                            Id = new Guid("ccb914e4-8f55-4693-8c09-e54afd119f82"),
-                            ClientId = new Guid("0ff86f3c-4aa9-44fa-b4d3-b66be877a2d4"),
-                            CreatedAt = new DateTime(2022, 3, 6, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1894)
+                            Id = new Guid("40a6a28e-92d5-42bf-af85-88ad87035c2e"),
+                            ClientId = new Guid("e2fd808b-c4c7-454e-8bbf-10d7ca215b7b"),
+                            CreatedAt = new DateTime(2024, 2, 4, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4242)
                         },
                         new
                         {
-                            Id = new Guid("b4ba6039-9833-4a76-8904-fac727da750e"),
-                            ClientId = new Guid("be64dfa7-50dc-4c15-83f1-b5136c304604"),
-                            CreatedAt = new DateTime(2024, 3, 17, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1896)
+                            Id = new Guid("cef5fc99-4456-414c-9f4a-068ceac2f110"),
+                            ClientId = new Guid("6fbcebb9-4289-454f-99a6-4c7d28eaa255"),
+                            CreatedAt = new DateTime(2023, 12, 30, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4244)
                         },
                         new
                         {
-                            Id = new Guid("bb200105-1331-4a4b-bb49-0a216a7b59f7"),
-                            ClientId = new Guid("be64dfa7-50dc-4c15-83f1-b5136c304604"),
-                            CreatedAt = new DateTime(2022, 4, 23, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1898)
+                            Id = new Guid("5be70fc8-50b0-44ef-a2c4-c1f1f97bac97"),
+                            ClientId = new Guid("93ae41c8-bbc4-4b66-b6c2-6cf08cedd3a1"),
+                            CreatedAt = new DateTime(2023, 10, 19, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4248)
                         },
                         new
                         {
-                            Id = new Guid("2211d318-12d3-49bc-9094-c909404cbd39"),
-                            ClientId = new Guid("bf12d20f-fbc2-4e79-907c-9b2b26e76627"),
-                            CreatedAt = new DateTime(2022, 4, 9, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1900)
+                            Id = new Guid("5ac37dd9-cd4c-4261-931b-4646cbd37e9e"),
+                            ClientId = new Guid("93ae41c8-bbc4-4b66-b6c2-6cf08cedd3a1"),
+                            CreatedAt = new DateTime(2023, 7, 17, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4250)
                         },
                         new
                         {
-                            Id = new Guid("956173c5-83ae-4226-bf0f-f2ab520d36f5"),
-                            ClientId = new Guid("2b44f8cf-6848-4bef-8e19-86cbf68a4b38"),
-                            CreatedAt = new DateTime(2022, 7, 5, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1904)
+                            Id = new Guid("70b4f701-15f0-48be-8d33-44d4a243ac48"),
+                            ClientId = new Guid("e4e735a0-1afd-4477-a9e3-3fb035dcfc42"),
+                            CreatedAt = new DateTime(2022, 9, 22, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4251)
                         },
                         new
                         {
-                            Id = new Guid("dd7c5359-7809-4188-8764-c2ae74bf6cac"),
-                            ClientId = new Guid("0ff86f3c-4aa9-44fa-b4d3-b66be877a2d4"),
-                            CreatedAt = new DateTime(2023, 6, 20, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1905)
+                            Id = new Guid("40d6d128-cee5-4bc9-ae64-f0f0218764be"),
+                            ClientId = new Guid("6fbcebb9-4289-454f-99a6-4c7d28eaa255"),
+                            CreatedAt = new DateTime(2023, 2, 15, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4253)
                         },
                         new
                         {
-                            Id = new Guid("b0efa5a1-097e-4240-8584-1f331028f2c3"),
-                            ClientId = new Guid("bf12d20f-fbc2-4e79-907c-9b2b26e76627"),
-                            CreatedAt = new DateTime(2022, 6, 22, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1907)
+                            Id = new Guid("222d16e7-295b-4788-ad68-3d462d0ae470"),
+                            ClientId = new Guid("e4e735a0-1afd-4477-a9e3-3fb035dcfc42"),
+                            CreatedAt = new DateTime(2023, 12, 15, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4255)
                         },
                         new
                         {
-                            Id = new Guid("6f77ae1e-e91f-404d-95f9-901d843d2522"),
-                            ClientId = new Guid("cae2788e-e9cd-4777-beb3-f4f8305cb23b"),
-                            CreatedAt = new DateTime(2023, 7, 7, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1908)
+                            Id = new Guid("47403a9a-5935-492e-b4ec-7bb7dce3053d"),
+                            ClientId = new Guid("93ae41c8-bbc4-4b66-b6c2-6cf08cedd3a1"),
+                            CreatedAt = new DateTime(2024, 1, 14, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4256)
                         },
                         new
                         {
-                            Id = new Guid("1d832cd8-76d9-4aa5-b61f-90b1bcd1a197"),
-                            ClientId = new Guid("be64dfa7-50dc-4c15-83f1-b5136c304604"),
-                            CreatedAt = new DateTime(2023, 1, 18, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1910)
+                            Id = new Guid("58cc1aad-045a-44f8-9ce3-7aa599b58123"),
+                            ClientId = new Guid("24301acc-a0d7-4f83-875c-7224d7ab4afd"),
+                            CreatedAt = new DateTime(2023, 7, 17, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4258)
                         },
                         new
                         {
-                            Id = new Guid("751b9c14-166c-4403-84db-a78452a2c254"),
-                            ClientId = new Guid("cae2788e-e9cd-4777-beb3-f4f8305cb23b"),
-                            CreatedAt = new DateTime(2023, 11, 13, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1913)
+                            Id = new Guid("ef868a54-7ba6-42a1-b38d-7e094e45bbae"),
+                            ClientId = new Guid("3629c35e-c45b-4d9d-a643-e2adc228ecd0"),
+                            CreatedAt = new DateTime(2023, 1, 27, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4260)
                         },
                         new
                         {
-                            Id = new Guid("11f53c0d-cb9d-4fa1-be1b-6f2b9dd7c3b5"),
-                            ClientId = new Guid("a6722490-3731-4c32-994f-d9cdc6177956"),
-                            CreatedAt = new DateTime(2022, 8, 15, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1914)
+                            Id = new Guid("584386a9-ecb5-4e36-b8b6-bf591d0133a0"),
+                            ClientId = new Guid("4f5e6333-d2d5-4bdc-8055-e363eea16b34"),
+                            CreatedAt = new DateTime(2023, 8, 18, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4263)
                         },
                         new
                         {
-                            Id = new Guid("efb4511f-bd7f-4e0a-a814-323d034735d5"),
-                            ClientId = new Guid("0ff86f3c-4aa9-44fa-b4d3-b66be877a2d4"),
-                            CreatedAt = new DateTime(2024, 2, 15, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1916)
+                            Id = new Guid("400b8f66-95d2-4631-857b-43777dbd4b0d"),
+                            ClientId = new Guid("34845d57-b256-42a9-bfa6-423ea09bb895"),
+                            CreatedAt = new DateTime(2023, 2, 24, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4265)
                         },
                         new
                         {
-                            Id = new Guid("df37f39f-1995-492e-ab64-aac4e037e452"),
-                            ClientId = new Guid("d732f3b3-ceb9-48ac-8012-0a71d5ca1a11"),
-                            CreatedAt = new DateTime(2022, 9, 9, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1919)
+                            Id = new Guid("ca056694-41a9-41c3-a18f-6ca6608b168f"),
+                            ClientId = new Guid("7b15078f-2266-46d6-aece-e6a3aeb6f6c4"),
+                            CreatedAt = new DateTime(2023, 8, 14, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4267)
                         },
                         new
                         {
-                            Id = new Guid("7dbe25c9-ff88-42ac-bfbf-39da813b1bd0"),
-                            ClientId = new Guid("2b44f8cf-6848-4bef-8e19-86cbf68a4b38"),
-                            CreatedAt = new DateTime(2023, 12, 12, 0, 19, 11, 269, DateTimeKind.Utc).AddTicks(1920)
+                            Id = new Guid("4bf0bdd0-b95d-4975-b062-289db0894617"),
+                            ClientId = new Guid("34845d57-b256-42a9-bfa6-423ea09bb895"),
+                            CreatedAt = new DateTime(2023, 8, 26, 11, 52, 18, 774, DateTimeKind.Utc).AddTicks(4268)
                         });
                 });
 
@@ -389,162 +389,194 @@ namespace OrderingService.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("602f32d7-faaf-4c53-95fd-2c7f2668018a"),
-                            OrderId = new Guid("ccd8b5cb-9fca-4eff-8d88-39f7aa3459f9"),
-                            Price = 799m,
-                            ProductId = new Guid("f1fcd5bc-8928-409f-add6-c26ec85f497c"),
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("aa6fc293-01ec-4dba-8bb2-aea4b2448fc2"),
-                            OrderId = new Guid("ccd8b5cb-9fca-4eff-8d88-39f7aa3459f9"),
-                            Price = 3398m,
-                            ProductId = new Guid("97db5d13-ec20-4bfd-b035-bc57e1319bc4"),
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = new Guid("48608476-9b2b-4c64-9535-ef3d096bb864"),
-                            OrderId = new Guid("ab1befaf-93bd-4fe0-af35-59525ee78e29"),
-                            Price = 155097m,
-                            ProductId = new Guid("e3c88564-f375-472e-a639-b66a1382fff7"),
-                            Quantity = 3
-                        },
-                        new
-                        {
-                            Id = new Guid("09b8b235-dfdf-4834-a9b5-a212d11bc85d"),
-                            OrderId = new Guid("50a10916-8493-4cd1-b7f0-3c233cb6d1ef"),
-                            Price = 399.98m,
-                            ProductId = new Guid("d8f88e30-0624-4311-9f4a-4c74822fe4ea"),
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = new Guid("6ddc433d-25cf-49f4-862b-4e3c35921176"),
-                            OrderId = new Guid("50a10916-8493-4cd1-b7f0-3c233cb6d1ef"),
-                            Price = 45597m,
-                            ProductId = new Guid("bf04feb2-590d-4297-ac38-067516e17a3d"),
-                            Quantity = 3
-                        },
-                        new
-                        {
-                            Id = new Guid("c739debb-a485-4f01-b583-2cff2f3f70c8"),
-                            OrderId = new Guid("32a55c00-475e-418a-89e3-6a396fe6e9fb"),
-                            Price = 597m,
-                            ProductId = new Guid("5e92f4c8-25aa-4a49-b244-c6ee417df4b4"),
-                            Quantity = 3
-                        },
-                        new
-                        {
-                            Id = new Guid("1c2d9a60-0425-4b14-b21f-073c5fa93675"),
-                            OrderId = new Guid("32a55c00-475e-418a-89e3-6a396fe6e9fb"),
-                            Price = 258495m,
-                            ProductId = new Guid("e3c88564-f375-472e-a639-b66a1382fff7"),
-                            Quantity = 5
-                        },
-                        new
-                        {
-                            Id = new Guid("6d373a94-4d35-43d6-9226-66e61f341b76"),
-                            OrderId = new Guid("3609fba9-c39b-4ba2-b551-d9dbe84be705"),
-                            Price = 11399.8m,
-                            ProductId = new Guid("ebfe59da-773c-421f-8818-beb494b6663d"),
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = new Guid("ac4874c9-c98c-4684-9612-741c572158f3"),
-                            OrderId = new Guid("bb200105-1331-4a4b-bb49-0a216a7b59f7"),
-                            Price = 199.98m,
-                            ProductId = new Guid("d73f1127-11f0-4bb0-a70c-2371cd1e6c41"),
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = new Guid("6579e59e-0f7a-47dd-b4b7-53edae366db3"),
-                            OrderId = new Guid("bb200105-1331-4a4b-bb49-0a216a7b59f7"),
-                            Price = 750m,
-                            ProductId = new Guid("ce9cf65f-e543-4806-9ddf-8eee7a1d5431"),
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("6c4581ff-bc86-40e2-9ac7-80ed499606da"),
-                            OrderId = new Guid("2211d318-12d3-49bc-9094-c909404cbd39"),
-                            Price = 280m,
-                            ProductId = new Guid("f576f1cd-9e46-4c62-945e-6ef8a11e14df"),
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("14ac4002-2404-4f19-adf7-f97f1f49cd71"),
-                            OrderId = new Guid("dd7c5359-7809-4188-8764-c2ae74bf6cac"),
-                            Price = 4399m,
-                            ProductId = new Guid("4af69082-2e63-49de-b18c-960c215a18fd"),
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("d358401d-b57f-448c-ab22-a50fc4cda82a"),
-                            OrderId = new Guid("b0efa5a1-097e-4240-8584-1f331028f2c3"),
-                            Price = 796m,
-                            ProductId = new Guid("5e92f4c8-25aa-4a49-b244-c6ee417df4b4"),
+                            Id = new Guid("97fb55bb-1df5-480f-ab80-502bb62ad863"),
+                            OrderId = new Guid("8843c7e7-4606-4266-9d74-96df3a987bdc"),
+                            Price = 4796m,
+                            ProductId = new Guid("14417564-1fd4-4803-b1b1-0288145f258e"),
                             Quantity = 4
                         },
                         new
                         {
-                            Id = new Guid("21f8d556-e96c-4d97-b38f-ae01ddc25c70"),
-                            OrderId = new Guid("751b9c14-166c-4403-84db-a78452a2c254"),
-                            Price = 8798m,
-                            ProductId = new Guid("4af69082-2e63-49de-b18c-960c215a18fd"),
+                            Id = new Guid("21548ab9-aa92-47f7-9a0b-718a98cc2a21"),
+                            OrderId = new Guid("8843c7e7-4606-4266-9d74-96df3a987bdc"),
+                            Price = 799.96m,
+                            ProductId = new Guid("be0dce3a-07ee-4b53-a9f4-79e626b5ef3d"),
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("9a8a093f-a197-47d6-a852-bc2b6a80d38b"),
+                            OrderId = new Guid("8843c7e7-4606-4266-9d74-96df3a987bdc"),
+                            Price = 220m,
+                            ProductId = new Guid("c1b502a5-27e5-48b6-a424-449e759a2179"),
                             Quantity = 2
                         },
                         new
                         {
-                            Id = new Guid("b0559478-0c0b-4b05-9ba1-b32379912143"),
-                            OrderId = new Guid("efb4511f-bd7f-4e0a-a814-323d034735d5"),
-                            Price = 49499.99m,
-                            ProductId = new Guid("ea105f07-4c1d-408b-8d20-ed46c81f7989"),
-                            Quantity = 1
+                            Id = new Guid("08e1c926-b739-4fa7-9204-ff25ffe84011"),
+                            OrderId = new Guid("2e118b3f-d274-4b82-87c0-7b0363527d7e"),
+                            Price = 1500m,
+                            ProductId = new Guid("4ab47776-5c78-4876-9ad3-d0185b0ae5c8"),
+                            Quantity = 2
                         },
                         new
                         {
-                            Id = new Guid("303bfb76-f04b-4ee5-8ce4-46d5a78d6d2b"),
-                            OrderId = new Guid("efb4511f-bd7f-4e0a-a814-323d034735d5"),
-                            Price = 999.95m,
-                            ProductId = new Guid("8c9369d1-3fc5-47d6-9954-69638aeb3c34"),
+                            Id = new Guid("f41989d8-bb15-413e-9769-611db72dfc23"),
+                            OrderId = new Guid("c8042be5-25fc-4646-a341-e393b3701843"),
+                            Price = 799.96m,
+                            ProductId = new Guid("23012394-ff43-4b0b-8c2c-a85a420449ca"),
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("27794d80-5897-4221-a413-59757662b78a"),
+                            OrderId = new Guid("c8042be5-25fc-4646-a341-e393b3701843"),
+                            Price = 250m,
+                            ProductId = new Guid("2088847f-7b60-43e6-a8c8-3894b83b14b9"),
                             Quantity = 5
                         },
                         new
                         {
-                            Id = new Guid("91a02821-80af-48da-a04a-b231da2bc667"),
-                            OrderId = new Guid("efb4511f-bd7f-4e0a-a814-323d034735d5"),
-                            Price = 560m,
-                            ProductId = new Guid("f576f1cd-9e46-4c62-945e-6ef8a11e14df"),
+                            Id = new Guid("0b0670bb-4e70-4a89-8e69-6f24438852b2"),
+                            OrderId = new Guid("9d21f72d-b841-4a3d-8c34-c546aef9fba4"),
+                            Price = 220m,
+                            ProductId = new Guid("c1b502a5-27e5-48b6-a424-449e759a2179"),
                             Quantity = 2
                         },
                         new
                         {
-                            Id = new Guid("10f35968-ff2a-4614-aced-88b8b77c8fe7"),
-                            OrderId = new Guid("7dbe25c9-ff88-42ac-bfbf-39da813b1bd0"),
-                            Price = 398m,
-                            ProductId = new Guid("5e92f4c8-25aa-4a49-b244-c6ee417df4b4"),
+                            Id = new Guid("b685609a-5f06-405a-b7e6-4d051daf2a1c"),
+                            OrderId = new Guid("9d21f72d-b841-4a3d-8c34-c546aef9fba4"),
+                            Price = 22799.6m,
+                            ProductId = new Guid("3ffed479-1dfc-41a3-8836-87ef1a547f76"),
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("821e56ab-170d-41b2-8ff7-0b1fa86f64fe"),
+                            OrderId = new Guid("9d21f72d-b841-4a3d-8c34-c546aef9fba4"),
+                            Price = 110m,
+                            ProductId = new Guid("c1b502a5-27e5-48b6-a424-449e759a2179"),
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("b02539df-96c7-4f26-b5d0-ffc0cb0d1898"),
+                            OrderId = new Guid("40a6a28e-92d5-42bf-af85-88ad87035c2e"),
+                            Price = 3995m,
+                            ProductId = new Guid("f0086139-f0bd-412d-8e32-fc483f8f8e2d"),
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Id = new Guid("822e5635-550e-47ff-9964-0cd63a06fd2f"),
+                            OrderId = new Guid("40a6a28e-92d5-42bf-af85-88ad87035c2e"),
+                            Price = 799m,
+                            ProductId = new Guid("f0086139-f0bd-412d-8e32-fc483f8f8e2d"),
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("4a8ee7d8-59a2-42c4-811b-5295b7635acc"),
+                            OrderId = new Guid("cef5fc99-4456-414c-9f4a-068ceac2f110"),
+                            Price = 202591.50m,
+                            ProductId = new Guid("a5f2e7c7-c0f0-4f97-a14d-02b43df393bb"),
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("f3806747-b0af-4b01-bd26-a596615a6077"),
+                            OrderId = new Guid("cef5fc99-4456-414c-9f4a-068ceac2f110"),
+                            Price = 440m,
+                            ProductId = new Guid("c1b502a5-27e5-48b6-a424-449e759a2179"),
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("37791897-aa9a-4f0b-b216-d88924556b3c"),
+                            OrderId = new Guid("5be70fc8-50b0-44ef-a2c4-c1f1f97bac97"),
+                            Price = 45597m,
+                            ProductId = new Guid("58e276f3-2cd4-4b69-beda-50107b4a58f7"),
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("0e1b3893-58cd-4c45-a5f2-af0b9b6c8e5f"),
+                            OrderId = new Guid("222d16e7-295b-4788-ad68-3d462d0ae470"),
+                            Price = 3199.99m,
+                            ProductId = new Guid("9fc9e275-e0c1-4d70-82ed-aec1db7f5668"),
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("b3ca0bd4-ae38-4040-84f7-b7ca80c9fe35"),
+                            OrderId = new Guid("222d16e7-295b-4788-ad68-3d462d0ae470"),
+                            Price = 9599.97m,
+                            ProductId = new Guid("9fc9e275-e0c1-4d70-82ed-aec1db7f5668"),
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("8ed3493e-bcc8-4043-a571-622f62bbd5f4"),
+                            OrderId = new Guid("47403a9a-5935-492e-b4ec-7bb7dce3053d"),
+                            Price = 23199.96m,
+                            ProductId = new Guid("38d5bbdf-8d26-4a4e-a1b4-4cf31f95d0be"),
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("d44364a6-e4bb-46c6-bbf9-65986ab28617"),
+                            OrderId = new Guid("58cc1aad-045a-44f8-9ce3-7aa599b58123"),
+                            Price = 49499.99m,
+                            ProductId = new Guid("80eaf80b-2672-44d9-97a5-b183b83f622b"),
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("039d2ecc-63f6-4b72-9f24-d5f3f7abcd03"),
+                            OrderId = new Guid("584386a9-ecb5-4e36-b8b6-bf591d0133a0"),
+                            Price = 337652.50m,
+                            ProductId = new Guid("a5f2e7c7-c0f0-4f97-a14d-02b43df393bb"),
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Id = new Guid("99058b4d-0f24-47e0-8b50-70fb22b8af96"),
+                            OrderId = new Guid("400b8f66-95d2-4631-857b-43777dbd4b0d"),
+                            Price = 46399.8m,
+                            ProductId = new Guid("62412ecf-2c2e-4724-b784-58affd99d590"),
                             Quantity = 2
                         },
                         new
                         {
-                            Id = new Guid("23f4d547-9ba7-4d59-b432-5ba07c0ac735"),
-                            OrderId = new Guid("7dbe25c9-ff88-42ac-bfbf-39da813b1bd0"),
-                            Price = 6066m,
-                            ProductId = new Guid("04a68ff5-11cb-40f2-a255-023313b4d9f3"),
+                            Id = new Guid("d607848e-53cc-4b9c-b0fc-cdf2dacd5f9b"),
+                            OrderId = new Guid("400b8f66-95d2-4631-857b-43777dbd4b0d"),
+                            Price = 202591.50m,
+                            ProductId = new Guid("a5f2e7c7-c0f0-4f97-a14d-02b43df393bb"),
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("bbed8827-79ca-470f-a2ac-0b7f4a618448"),
+                            OrderId = new Guid("ca056694-41a9-41c3-a18f-6ca6608b168f"),
+                            Price = 45597m,
+                            ProductId = new Guid("58e276f3-2cd4-4b69-beda-50107b4a58f7"),
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("9867d55a-c0f9-44ab-b744-7381ad97d32c"),
+                            OrderId = new Guid("4bf0bdd0-b95d-4975-b062-289db0894617"),
+                            Price = 46399.8m,
+                            ProductId = new Guid("62412ecf-2c2e-4724-b784-58affd99d590"),
                             Quantity = 2
                         },
                         new
                         {
-                            Id = new Guid("f6a762eb-4e19-4f72-a686-2d995d27ea85"),
-                            OrderId = new Guid("7dbe25c9-ff88-42ac-bfbf-39da813b1bd0"),
-                            Price = 399.98m,
-                            ProductId = new Guid("8c9369d1-3fc5-47d6-9954-69638aeb3c34"),
+                            Id = new Guid("3db8096a-dff0-4342-b2c1-0e5f2bcacb6d"),
+                            OrderId = new Guid("4bf0bdd0-b95d-4975-b062-289db0894617"),
+                            Price = 2398m,
+                            ProductId = new Guid("14417564-1fd4-4803-b1b1-0288145f258e"),
                             Quantity = 2
                         });
                 });
@@ -587,7 +619,7 @@ namespace OrderingService.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dec3c83d-d254-432e-a820-201dde19af14"),
+                            Id = new Guid("a5f2e7c7-c0f0-4f97-a14d-02b43df393bb"),
                             Name = "IPhone 8s",
                             Price = 67530.50m,
                             ProductTypeRefId = 0,
@@ -595,7 +627,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e3c88564-f375-472e-a639-b66a1382fff7"),
+                            Id = new Guid("716b356f-af3c-4ee2-b0fb-3f8dbc21fad7"),
                             Name = "ASUS VivoBook 16X M1603QA",
                             Price = 51699m,
                             ProductTypeRefId = 0,
@@ -603,7 +635,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bf04feb2-590d-4297-ac38-067516e17a3d"),
+                            Id = new Guid("58e276f3-2cd4-4b69-beda-50107b4a58f7"),
                             Name = "LED Harper 43F660Y",
                             Price = 15199m,
                             ProductTypeRefId = 0,
@@ -611,7 +643,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("429445da-7f29-4724-bbef-ec93c7981425"),
+                            Id = new Guid("62412ecf-2c2e-4724-b784-58affd99d590"),
                             Name = "LET Prestigio PTV50SS08X",
                             Price = 23199.9m,
                             ProductTypeRefId = 0,
@@ -619,7 +651,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("79846436-38d6-4255-9b41-061a1322374b"),
+                            Id = new Guid("fec58d60-4d6a-4dd5-bde3-f4adc35db9f7"),
                             Name = "AMD Ryzen 7 4700G OEM",
                             Price = 15499.99m,
                             ProductTypeRefId = 0,
@@ -627,7 +659,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d8f88e30-0624-4311-9f4a-4c74822fe4ea"),
+                            Id = new Guid("23012394-ff43-4b0b-8c2c-a85a420449ca"),
                             Name = "Швабра Master House Бачата",
                             Price = 199.99m,
                             ProductTypeRefId = 3,
@@ -635,7 +667,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9960d886-ebb9-4c0b-b4c0-13d15d3d197e"),
+                            Id = new Guid("be0dce3a-07ee-4b53-a9f4-79e626b5ef3d"),
                             Name = "Швабра Master House Джайв",
                             Price = 199.99m,
                             ProductTypeRefId = 3,
@@ -643,7 +675,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1eee1463-5589-4924-89a7-138787dec704"),
+                            Id = new Guid("2088847f-7b60-43e6-a8c8-3894b83b14b9"),
                             Name = "Чистящее средство для нагревательных элементов электроплит/газовых плит Topper IR 5",
                             Price = 50m,
                             ProductTypeRefId = 3,
@@ -651,7 +683,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5e92f4c8-25aa-4a49-b244-c6ee417df4b4"),
+                            Id = new Guid("db2a4e37-9cdb-43b2-84f5-755b96751d51"),
                             Name = "Набор для ухода для стеклокерамических поверхностей Fiora bio ЭКО 20-002",
                             Price = 199m,
                             ProductTypeRefId = 3,
@@ -659,7 +691,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f576f1cd-9e46-4c62-945e-6ef8a11e14df"),
+                            Id = new Guid("79df991c-0ef9-44de-b582-f443190732ec"),
                             Name = "Очиститель для тканей и мебели ОС-Гель",
                             Price = 280m,
                             ProductTypeRefId = 3,
@@ -667,7 +699,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ea105f07-4c1d-408b-8d20-ed46c81f7989"),
+                            Id = new Guid("80eaf80b-2672-44d9-97a5-b183b83f622b"),
                             Name = "Газонокосилка-робот Champion RMB1828",
                             Price = 49499.99m,
                             ProductTypeRefId = 3,
@@ -675,7 +707,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8c9369d1-3fc5-47d6-9954-69638aeb3c34"),
+                            Id = new Guid("99f346aa-bf0e-49d4-a505-b2f1f14a4ade"),
                             Name = "ТВ розетка одинарная Schneider Electric Glossa GSL000391",
                             Price = 199.99m,
                             ProductTypeRefId = 3,
@@ -683,7 +715,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ebfe59da-773c-421f-8818-beb494b6663d"),
+                            Id = new Guid("3ffed479-1dfc-41a3-8836-87ef1a547f76"),
                             Name = "Набор инструментов Квалитет 5027038",
                             Price = 5699.9m,
                             ProductTypeRefId = 2,
@@ -691,7 +723,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("eafdac08-8890-4b5c-a1f7-a786151694d9"),
+                            Id = new Guid("38d5bbdf-8d26-4a4e-a1b4-4cf31f95d0be"),
                             Name = "Набор инструментов Swiss Tools ST-1077",
                             Price = 5799.99m,
                             ProductTypeRefId = 2,
@@ -699,7 +731,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("04a68ff5-11cb-40f2-a255-023313b4d9f3"),
+                            Id = new Guid("e3249465-c56a-4b03-919a-6cb07d16c118"),
                             Name = "Набор инструментов Дело Техники 600937",
                             Price = 3033m,
                             ProductTypeRefId = 2,
@@ -707,7 +739,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d73f1127-11f0-4bb0-a70c-2371cd1e6c41"),
+                            Id = new Guid("eb4415c7-3206-4ff2-af1e-505768ae76c1"),
                             Name = "Инструмент для вскрытия техники Rexant 12-4335",
                             Price = 99.99m,
                             ProductTypeRefId = 2,
@@ -715,7 +747,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ad58b674-4a47-4d34-9b67-7b4e45849f94"),
+                            Id = new Guid("c1b502a5-27e5-48b6-a424-449e759a2179"),
                             Name = "Отвертка с набором насадок Matrix 11598",
                             Price = 110m,
                             ProductTypeRefId = 2,
@@ -723,7 +755,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("97db5d13-ec20-4bfd-b035-bc57e1319bc4"),
+                            Id = new Guid("6d3de57c-711d-4305-8602-c9f12327a135"),
                             Name = "Набор инструментов КВТ Профи НИИ-09",
                             Price = 1699m,
                             ProductTypeRefId = 2,
@@ -731,7 +763,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4af69082-2e63-49de-b18c-960c215a18fd"),
+                            Id = new Guid("be01b729-1c56-4f3a-84c0-83f3790969fb"),
                             Name = "Паяльная станция Rexant 12-0714",
                             Price = 4399m,
                             ProductTypeRefId = 2,
@@ -739,7 +771,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e19d3272-c4ec-422a-8eea-bccb4854dbc6"),
+                            Id = new Guid("9fc9e275-e0c1-4d70-82ed-aec1db7f5668"),
                             Name = "Видеорегистратор 70mai Dash Cam M300",
                             Price = 3199.99m,
                             ProductTypeRefId = 1,
@@ -747,7 +779,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3c9d1390-0d3b-4c8e-bbe9-1d7f19916a89"),
+                            Id = new Guid("14417564-1fd4-4803-b1b1-0288145f258e"),
                             Name = "Адаптер для скрытого подключения видеорегистратора Roadgid Cord DC",
                             Price = 1199m,
                             ProductTypeRefId = 1,
@@ -755,7 +787,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f1fcd5bc-8928-409f-add6-c26ec85f497c"),
+                            Id = new Guid("f0086139-f0bd-412d-8e32-fc483f8f8e2d"),
                             Name = "Камера заднего вида Silverstone F1 Interpower IP-662 LED",
                             Price = 799m,
                             ProductTypeRefId = 1,
@@ -763,7 +795,7 @@ namespace OrderingService.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ce9cf65f-e543-4806-9ddf-8eee7a1d5431"),
+                            Id = new Guid("4ab47776-5c78-4876-9ad3-d0185b0ae5c8"),
                             Name = "Инвертор DEXP CAR 150W",
                             Price = 750m,
                             ProductTypeRefId = 1,

@@ -1,10 +1,12 @@
-﻿using Infrastructure.Commands;
+﻿using FluentValidation.AspNetCore;
+using Infrastructure.Commands;
 using Infrastructure.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using OrderingService.Dal.Models;
+using OrderingService.Domain;
 using OrderingService.Domain.Clients;
-using System.Runtime.InteropServices;
 
 namespace OrderingService.Api.Controllers
 {
@@ -36,6 +38,47 @@ namespace OrderingService.Api.Controllers
             _queryBus = queryBus;
             _commandBus = commandBus;
             _memoryCache = memoryCache;
+        }
+
+        /// <summary>
+        /// Получение клиента по Id.
+        /// </summary>
+        /// <param name="clientId">Id запрашиваемого клиента.</param>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Объект клиента.</returns>
+        [HttpGet("{ClientId}")]
+        public async Task<ActionResult<Client>> GetClient(
+            [FromRoute] Guid clientId, 
+            CancellationToken cancellationToken)
+        {
+            var query = new GetQuery.Query
+            {
+                Id = clientId,
+                ResultEntityType = typeof(Client)
+            };
+
+            var validationResult = await new GetQuery.Validator().ValidateAsync(query);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(ModelState);
+                return BadRequest(ModelState);
+            }
+
+            GetQuery.Result result;
+
+            if (!_memoryCache.TryGetValue(query.Id, out result!))
+            {
+                result = await _queryBus.Send(query, cancellationToken);
+
+                _memoryCache.Set(query.Id, result);
+            }
+
+            var client = result.Entity as Client;
+
+            return client != null ?
+                Ok(client) :
+                NotFound(client);
         }
 
         /// <summary>
