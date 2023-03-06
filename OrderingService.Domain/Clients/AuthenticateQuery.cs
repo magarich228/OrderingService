@@ -10,7 +10,7 @@ namespace OrderingService.Domain.Clients
     {
         public class Query : IQuery<Result>
         {
-            public string Username { get; set; } = default!;
+            public string Login { get; set; } = default!;
 
             public string Password { get; set; } = default!;
         }
@@ -24,7 +24,7 @@ namespace OrderingService.Domain.Clients
         {
             public Validator()
             {
-                RuleFor(q => q.Username)
+                RuleFor(q => q.Login)
                     .MaximumLength(128)
                     .NotEmpty();
 
@@ -45,18 +45,18 @@ namespace OrderingService.Domain.Clients
 
             public async Task<Result> Handle(Query query, CancellationToken cancellationToken)
             {
-                var result = await Authenticate(query.Username, query.Password, cancellationToken);
+                var result = await Authenticate(query.Login, query.Password, cancellationToken);
 
                 return result;
             }
 
             private async Task<Result> Authenticate(
-                string username, 
+                string login, 
                 string password,
                 CancellationToken cancellationToken)
             {
                 var credentials = await _db.ClientCredentials.SingleOrDefaultAsync(credentials => 
-                    credentials.Login == username &&
+                    credentials.Login == login &&
                     credentials.Password == password);
 
                 if (credentials == null)

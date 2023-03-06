@@ -52,7 +52,7 @@ services.AddSwaggerGen(c =>
                     Id = "basic"
                 }
             },
-        new string[] {} 
+            new string[] {} 
         }
     });
 });

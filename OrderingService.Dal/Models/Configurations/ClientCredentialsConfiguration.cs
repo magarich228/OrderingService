@@ -21,7 +21,8 @@ namespace OrderingService.Dal.Models.Configurations
 
             builder.Property(cc => cc.Login)
                 .HasMaxLength(128)
-                .IsRequired();
+                .IsRequired()
+                .HasColumnName("Login");
 
             builder.Property(cc => cc.Password)
                 .HasMaxLength(200)

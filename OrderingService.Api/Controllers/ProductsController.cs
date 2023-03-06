@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using OrderingService.Dal.Models;
+using OrderingService.Domain;
 using OrderingService.Domain.Dtos;
 using OrderingService.Domain.Products;
 
@@ -28,6 +30,39 @@ namespace OrderingService.Api.Controllers
         {
             _queryBus = queryBus;
             _memoryCache = memoryCache;
+        }
+
+        /// <summary>
+        /// Получение товара по Id.
+        /// </summary>
+        /// <param name="productId">Id запрашиваемого товара.</param>
+        /// <param name="cancellationToken">Токен отмены операции.</param>
+        /// <returns>Объект результата с полученным товаром.</returns>
+        [HttpGet("{ProductId}")]
+        public async Task<ActionResult<Product>> GetProduct(
+            [FromRoute] Guid productId, 
+            CancellationToken cancellationToken)
+        {
+            var query = new GetQuery.Query
+            {
+                Id = productId,
+                ResultEntityType = typeof(Product)
+            };
+
+            GetQuery.Result result;
+
+            if (!_memoryCache.TryGetValue(productId, out result!))
+            {
+                result = await _queryBus.Send(query, cancellationToken);
+
+                _memoryCache.Set(query.Id, result);
+            }
+
+            var product = result.Entity as Product;
+
+            return product != null? 
+                Ok(product) :
+                NotFound(product);
         }
 
         /// <summary>

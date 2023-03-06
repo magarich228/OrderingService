@@ -5,23 +5,30 @@ using OrderingService.Dal.Abstractions;
 
 namespace OrderingService.Domain
 {
-    public class GetQuery<TModel> where TModel : Model
+    public class GetQuery
     {
         public class Query : IQuery<Result>
         {
             public Guid Id { get; set; }
+
+            public Type ResultEntityType { get; set; } = null!;
         }
 
         public class Result
         {
-            public TModel? Entity { get; set; }
+            public Model? Entity { get; set; }
         }
 
         public class Validator : AbstractValidator<Query>
         {
             public Validator()
             {
-                RuleFor(x => x.Id).NotEmpty();
+                RuleFor(q => q.Id).NotEmpty();
+                
+                RuleFor(q => q.ResultEntityType)
+                    .Must(t => t.IsSubclassOf(typeof(Model)))
+                    .WithMessage("Тип получаемой сущности должнен быть доменной моделью.")
+                    .NotEmpty();
             }
         }
 
@@ -36,11 +43,11 @@ namespace OrderingService.Domain
 
             public async Task<Result> Handle(Query query, CancellationToken cancellationToken)
             {
-                var entity = await _db.FindAsync<TModel>(query.Id);
+                var entity = await _db.FindAsync(query.ResultEntityType, query.Id);
 
                 return new Result
                 {
-                    Entity = entity
+                    Entity = entity as Model,
                 };
             }
         }

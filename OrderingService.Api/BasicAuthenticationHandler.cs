@@ -102,7 +102,7 @@ namespace OrderingService.Api
 
             var query = new AuthenticateQuery.Query
             {
-                Username = credentials[0],
+                Login = credentials[0],
                 Password = credentials[1],
             };
 

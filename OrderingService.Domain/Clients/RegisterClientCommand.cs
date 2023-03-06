@@ -10,7 +10,7 @@ namespace OrderingService.Domain.Clients
     {
         public class Command : ICommand<Result>
         {
-            public string Username { get; set; } = null!;
+            public string Login { get; set; } = null!;
 
             public string Password { get; set; } = null!;
 
@@ -23,14 +23,14 @@ namespace OrderingService.Domain.Clients
         {
             public Guid Id { get; set; }
 
-            public string Username { get; set; } = null!;
+            public string Login { get; set; } = null!;
         }
 
         public class Validator : AbstractValidator<Command>
         {
             public Validator(OrderingContext db)
             {
-                RuleFor(c => c.Username)
+                RuleFor(c => c.Login)
                     .MaximumLength(128)
                     .NotEmpty()
                     .Must(u => !db.ClientCredentials.Any(cc => cc.Login == u))
@@ -83,7 +83,7 @@ namespace OrderingService.Domain.Clients
                 ClientCredentials credentials = new()
                 {
                     ClientId = client.Id,
-                    Login = command.Username,
+                    Login = command.Login,
                     Password = command.Password
                 };
 
@@ -95,7 +95,7 @@ namespace OrderingService.Domain.Clients
                 return new Result
                 {
                     Id = client.Id,
-                    Username = credentials.Login
+                    Login = credentials.Login
                 };
             }
         }
