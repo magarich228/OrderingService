@@ -61,6 +61,14 @@ namespace OrderingService.Api.Controllers
                 ResultEntityType = typeof(Order)
             };
 
+            var validationResult = await new GetQuery.Validator().ValidateAsync(query);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(ModelState);
+                return BadRequest(ModelState);
+            }
+
             GetQuery.Result result;
 
             if (!_memoryCache.TryGetValue(query.Id, out result!))

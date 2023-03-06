@@ -1,4 +1,5 @@
-﻿using Infrastructure.Queries;
+﻿using FluentValidation.AspNetCore;
+using Infrastructure.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -49,6 +50,14 @@ namespace OrderingService.Api.Controllers
                 ResultEntityType = typeof(Product)
             };
 
+            var validationResult = await new GetQuery.Validator().ValidateAsync(query);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(ModelState);
+                return BadRequest(ModelState);
+            }
+
             GetQuery.Result result;
 
             if (!_memoryCache.TryGetValue(productId, out result!))
@@ -66,7 +75,7 @@ namespace OrderingService.Api.Controllers
         }
 
         /// <summary>
-        /// Получение товаров с возможностью фильтрации по типу товара,
+        /// Получение всех товаров с возможностью фильтрации по типу товара,
         /// минимальному количеству на складе и сортировки по цене.
         /// </summary>
         /// <param name="query">Запрос со свойствами для фильтрации, сортировки.</param>
