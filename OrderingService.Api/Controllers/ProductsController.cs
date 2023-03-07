@@ -39,7 +39,7 @@ namespace OrderingService.Api.Controllers
         /// <param name="productId">Id запрашиваемого товара.</param>
         /// <param name="cancellationToken">Токен отмены операции.</param>
         /// <returns>Объект результата с полученным товаром.</returns>
-        [HttpGet("{ProductId}")]
+        [HttpGet("{productId}")]
         public async Task<ActionResult<Product>> GetProduct(
             [FromRoute] Guid productId, 
             CancellationToken cancellationToken)
@@ -101,7 +101,7 @@ namespace OrderingService.Api.Controllers
         /// с товаром и количеством товара в заказе.
         /// </returns>
         [Authorize]
-        [HttpGet("{OrderId}")]
+        [HttpGet("order{OrderId}")]
         public async Task<ActionResult<GetOrderProductsQuery.Result>> GetOrderProducts(
             [FromRoute] GetOrderProductsQuery.Query query,
             CancellationToken cancellationToken)
