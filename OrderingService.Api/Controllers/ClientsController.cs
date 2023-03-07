@@ -46,7 +46,7 @@ namespace OrderingService.Api.Controllers
         /// <param name="clientId">Id запрашиваемого клиента.</param>
         /// <param name="cancellationToken">Токен отмены операции</param>
         /// <returns>Объект клиента.</returns>
-        [HttpGet("{ClientId}")]
+        [HttpGet("{clientId}")]
         public async Task<ActionResult<Client>> GetClient(
             [FromRoute] Guid clientId, 
             CancellationToken cancellationToken)
