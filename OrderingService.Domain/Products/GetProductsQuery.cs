@@ -44,7 +44,8 @@ namespace OrderingService.Domain.Products
                 var products = await GetProducts(
                     query.TypeFilter,
                     query.MinimumQuantityFilter,
-                    query.SortingByPrice);
+                    query.SortingByPrice,
+                    cancellationToken);
 
                 return products;
             }
@@ -52,7 +53,8 @@ namespace OrderingService.Domain.Products
             private async Task<Result> GetProducts(
                 ProductType? typeFilter,
                 int? minQuantityFilter,
-                bool? sortingByPrice)
+                bool? sortingByPrice,
+                CancellationToken cancellationToken)
             {
                 var query = _db.Products.AsQueryable();
 
@@ -71,7 +73,7 @@ namespace OrderingService.Domain.Products
                     query = query.OrderBy(p => p.Price);
                 }
 
-                var result = await query.ToListAsync();
+                var result = await query.ToListAsync(cancellationToken);
 
                 return new Result()
                 {

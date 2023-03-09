@@ -43,7 +43,7 @@ namespace OrderingService.Domain
 
             public async Task<Result> Handle(Query query, CancellationToken cancellationToken)
             {
-                var entity = await _db.FindAsync(query.ResultEntityType, query.Id);
+                var entity = await _db.FindAsync(query.ResultEntityType, query.Id, cancellationToken);
 
                 return new Result
                 {

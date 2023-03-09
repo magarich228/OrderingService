@@ -38,7 +38,7 @@ namespace OrderingService.Domain.Products
 
             public async Task<Result> Handle(Query query, CancellationToken cancellationToken)
             {
-                var product = await _db.Products.FindAsync(query.ProductId);
+                var product = await _db.Products.FindAsync(query.ProductId, cancellationToken);
 
                 return new Result()
                 {
