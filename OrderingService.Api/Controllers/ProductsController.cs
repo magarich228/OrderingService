@@ -1,4 +1,5 @@
 ﻿using FluentValidation.AspNetCore;
+using Infrastructure.Commands;
 using Infrastructure.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ namespace OrderingService.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
+        private readonly ICommandBus _commandBus;
         private readonly IMemoryCache _memoryCache;
 
         /// <summary>
@@ -25,12 +27,15 @@ namespace OrderingService.Api.Controllers
         /// </summary>
         /// <param name="queryBus">Отправка запросов.</param>
         /// <param name="memoryCache">Реализация кэширования.</param>
+        /// <param name="commandBus">Отправка команд.</param>
         public ProductsController(
             IQueryBus queryBus,
-            IMemoryCache memoryCache)
+            IMemoryCache memoryCache,
+            ICommandBus commandBus)
         {
             _queryBus = queryBus;
             _memoryCache = memoryCache;
+            _commandBus = commandBus;
         }
 
         /// <summary>
@@ -116,6 +121,48 @@ namespace OrderingService.Api.Controllers
             }
 
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Добавление нового товара.
+        /// </summary>
+        /// <param name="command">Объект команды добавления с данными о новом товаре.</param>
+        /// <param name="cancellationToken">Токен отмены операции.</param>
+        /// <returns>Объект результата команды с Id нового товара.</returns>
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult<AddProductCommand.Result>> AddProduct(
+            [FromBody] AddProductCommand.Command command, 
+            CancellationToken cancellationToken)
+        {
+            var result = await _commandBus.Send(command, cancellationToken);
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Удаление товара.
+        /// </summary>
+        /// <param name="productId">Id товара.</param>
+        /// <param name="cancellationToken">Токен отмены операции.</param>
+        /// <returns>Объект результата с успехом операции.</returns>
+        [Authorize]
+        [HttpDelete("{productId}")]
+        public async Task<ActionResult<DeleteCommand.Result>> DeleteProduct(
+            [FromRoute] Guid productId,
+            CancellationToken cancellationToken)
+        {
+            var command = new DeleteCommand.Command
+            {
+                Id = productId,
+                Type = typeof(Product)
+            };
+
+            var result = await _commandBus.Send(command, cancellationToken);
+
+            return result.Success ? 
+                Ok(result) :
+                Problem(detail: "Операция удаления товара неуспешна.");
         }
     }
 }

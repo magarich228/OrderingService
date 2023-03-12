@@ -141,5 +141,30 @@ namespace OrderingService.Api.Controllers
 
             return Ok(result);
         }
+
+        /// <summary>
+        /// Удаление клиента.
+        /// </summary>
+        /// <param name="clientId">Id клиента.</param>
+        /// <param name="cancellationToken">Токен отмены операции.</param>
+        /// <returns>Объект результата команды с успешностью команды.</returns>
+        [HttpDelete("{clientId}")]
+        public async Task<ActionResult<DeleteCommand.Result>> DeleteClient(
+            [FromRoute] Guid clientId,
+            CancellationToken cancellationToken)
+        {
+
+            var command = new DeleteCommand.Command
+            {
+                Id = clientId,
+                Type = typeof(Client)
+            };
+
+            var result = await _commandBus.Send(command, cancellationToken);
+
+            return result.Success ?
+                Ok(result) :
+                Problem(detail: "Операция удаления клиента неуспешна.");
+        }
     }
 }

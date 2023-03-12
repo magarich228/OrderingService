@@ -21,7 +21,7 @@ namespace OrderingService.Domain
 
         public class Validator : AbstractValidator<Command>
         {
-            public Validator()
+            public Validator(OrderingContext db)
             {
                 RuleFor(c => c.Id)
                     .NotEmpty();
@@ -30,6 +30,9 @@ namespace OrderingService.Domain
                     .Must(t => t.IsSubclassOf(typeof(Model)))
                     .WithMessage("Тип удаляемой сущности должнен быть доменной моделью.")
                     .NotEmpty();
+
+                RuleFor(c => c)
+                     .Must(c => db.Find(c.Type, c.Id) != null).WithMessage("Сущности с таким Id не существует.");
             }
         }
 
@@ -53,11 +56,19 @@ namespace OrderingService.Domain
             {
                 var entity = await _db.FindAsync(type, id, cancellationToken);
 
+                if (entity == null)
+                {
+                    return new Result
+                    {
+                        Success = false
+                    };
+                }
+
                 _db.Remove(entity!);
 
                 return new Result
                 {
-                    Success = (entity != null) && (await _db.SaveChangesAsync(cancellationToken) > 0)
+                    Success = await _db.SaveChangesAsync(cancellationToken) > 0
                 };
             }
         }
