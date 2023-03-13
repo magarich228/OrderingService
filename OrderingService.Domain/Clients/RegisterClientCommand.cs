@@ -87,10 +87,10 @@ namespace OrderingService.Domain.Clients
                     Password = command.Password
                 };
 
-                await _db.Clients.AddAsync(client);
-                await _db.ClientCredentials.AddAsync(credentials);
+                await _db.Clients.AddAsync(client, cancellationToken);
+                await _db.ClientCredentials.AddAsync(credentials, cancellationToken);
 
-                await _db.SaveChangesAsync();
+                await _db.SaveChangesAsync(cancellationToken);
 
                 return new Result
                 {

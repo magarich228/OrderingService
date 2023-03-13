@@ -64,7 +64,7 @@ namespace OrderingService.Domain.Clients
                     return new Result();
                 }
 
-                var client = await _db.Clients.SingleOrDefaultAsync(client => client.Id == credentials.ClientId);
+                var client = await _db.Clients.SingleOrDefaultAsync(client => client.Id == credentials.ClientId, cancellationToken);
 
                 if (client == null)
                 {

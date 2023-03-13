@@ -37,12 +37,12 @@ namespace OrderingService.Domain.Clients
 
             public async Task<Result> Handle(Query query, CancellationToken cancellationToken)
             {
-                var clients = await GetClients();
+                var clients = await GetClients(cancellationToken);
 
                 return clients;
             }
 
-            private async Task<Result> GetClients()
+            private async Task<Result> GetClients(CancellationToken cancellationToken)
             {
                 var query = _db.Clients.Select(c => new Client()
                 {
@@ -53,7 +53,7 @@ namespace OrderingService.Domain.Clients
 
                 var result = new Result
                 {
-                    Clients = await query.ToListAsync()
+                    Clients = await query.ToListAsync(cancellationToken)
                 };
 
                 return result;

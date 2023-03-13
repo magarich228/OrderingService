@@ -49,7 +49,7 @@ namespace OrderingService.Domain.Products
             private async Task<Result> GetProducts(Guid orderId, CancellationToken cancellationToken)
             {
                 var productsInOrderQuery = _db.ProductsInOrders.Where(p => p.OrderId == orderId);
-                var productsInOrder = await productsInOrderQuery.ToListAsync();
+                var productsInOrder = await productsInOrderQuery.ToListAsync(cancellationToken);
 
                 var products = _db.Products.AsEnumerable().Where(p => productsInOrder.Any(po => po.ProductId == p.Id));
 

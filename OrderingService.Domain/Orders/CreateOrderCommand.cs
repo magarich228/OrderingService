@@ -103,12 +103,12 @@ namespace OrderingService.Domain.Orders
                     });
                 }
 
-                await _db.Orders.AddAsync(order);
-                await _db.ProductsInOrders.AddRangeAsync(productsInOrder);
+                await _db.Orders.AddAsync(order, cancellationToken);
+                await _db.ProductsInOrders.AddRangeAsync(productsInOrder, cancellationToken);
 
                 for (int i = 0; i < productsInOrder.Count; i++)
                 {
-                    Product product = await _db.Products.FirstAsync(p => p.Id == productsInOrderIds[i]);
+                    Product product = await _db.Products.FirstAsync(p => p.Id == productsInOrderIds[i], cancellationToken);
 
                     product.Quantity -= orderProductsQuantities[i];
                 }

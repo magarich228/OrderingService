@@ -41,19 +41,21 @@ namespace OrderingService.Domain.Orders
             public async Task<Result> Handle(Query query, CancellationToken cancellationToken)
             {
                 var result = await GetOrdersAsc(
-                    query.ClientId);
+                    query.ClientId,
+                    cancellationToken);
 
                 return result;
             }
 
             private async Task<Result> GetOrdersAsc(
-                Guid clientId)
+                Guid clientId,
+                CancellationToken cancellationToken)
             {
                 var query = _db.Orders
                     .Where(o => o.ClientId == clientId)
                     .OrderBy(o => o.CreatedAt);
 
-                var orders = await query.ToListAsync();
+                var orders = await query.ToListAsync(cancellationToken);
 
                 return new Result()
                 {
